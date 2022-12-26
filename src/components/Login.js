@@ -4,7 +4,7 @@ import $ from 'jquery'
 export default function Login() {
     let logged = localStorage.getItem("logged");
     if(logged){
-        window.location.href='/tic-tac-toe/user/home';
+        window.location.href='/tic-tac-toe/#/user/home';
     }
 
     function loginUser(e) {
@@ -44,7 +44,7 @@ export default function Login() {
                     localStorage.setItem("logged_id", myData.user_id);
                     localStorage.setItem("logged_name", myData.name);
                     localStorage.setItem("logged_username", myData.username);
-                    window.location.href="/tic-tac-toe/user/home";
+                    window.location.href="/tic-tac-toe/#/user/home";
                 }
                 else{
                     alert("Sorry some technical issue.");

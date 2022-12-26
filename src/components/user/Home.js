@@ -42,7 +42,7 @@ export default function Home() {
                     <div className="noGames text-center h-100 align-self-center">
                         <h2>No Games Found !</h2>
                         <br />
-                        <a href="/tic-tac-toe/user/newgame" className="btn btn-warning">Start a new game</a>
+                        <a href="/tic-tac-toe/#/user/newgame" className="btn btn-warning">Start a new game</a>
                     </div>
                     <button className="btn fixed-bottom m-2 logoutButton" onClick={()=>{logout()}}>
                         <i className="bi bi-arrow-bar-left"></i> <b>Logout</b>
@@ -67,7 +67,7 @@ export default function Home() {
                     )}
                    
                     <br /><br />
-                    <a href="/tic-tac-toe/user/newgame" className="btn btn-dark  newGameButton">+ new game</a>
+                    <a href="/tic-tac-toe/#/user/newgame" className="btn btn-dark  newGameButton">+ new game</a>
 
                     <button className="btn fixed-bottom m-2 logoutButton" onClick={()=>{logout()}}>
                         <i className="bi bi-arrow-bar-left"></i> <b>Logout</b>
