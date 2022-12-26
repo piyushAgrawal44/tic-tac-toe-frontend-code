@@ -14,18 +14,30 @@ export default function Game() {
 
 
     let url_string = window.location.href; 
-    let url = new URL(url_string);
-    let match_id = url.searchParams.get("match_id");
+    let result=url_string.split('?').reduce(function (res, item) {
+        var parts = item.split('=');
+        res[parts[0]] = parts[1];
+        return res;
+    }, {});
+
+    // not working for hash url
+    // let url = new URL(url_string);
+    // let match_id = url.searchParams.get("match_id");
+
+
+    let match_id = result["match_id"];
     
-    const [matchDetails, setmatchDetails] = useState([]);
+    
     useEffect(() => {
         fetchRepo();
     }, []);
-    
 
+    const [matchDetails, setmatchDetails] = useState([]);
+   
     async function fetchRepo() {
         await fetch("https://wodrsbattlegame.000webhostapp.com/backend_for_tic_tac_toe/fetch-match-details.php?id="+match_id).then(res => res.json()).then(data => {
             setmatchDetails(data);
+          
         });
     }  
   
@@ -34,7 +46,8 @@ export default function Game() {
     // let failureSoundEffect=new Audio(failureSound);
 
     function setBox(element){
-        if(parseInt(matchDetails[0].current_move) !== parseInt(myId)){
+        
+        if((parseInt(matchDetails[0].current_move) !== parseInt(myId)) && (element.target.innerText==='') ){
             element.target.innerText="X";
             tapSoundEffect.play();
             // Check for a win
@@ -83,7 +96,6 @@ export default function Game() {
                         match_win_by=3;
                 }
             }
-            console.log(match_win_by,match_status);
             
             $.ajax({
                 url: "https://wodrsbattlegame.000webhostapp.com/backend_for_tic_tac_toe/game-update.php",
@@ -99,11 +111,11 @@ export default function Game() {
                 success: function(data) {
                     
                     fetchRepo();
-                    console.log(data)
+                    // console.log(data)
                 },
                 error: function(error) {
                     alert("Sorry some technical issue.");
-                    console.log(error)
+                    // console.log(error)
                 }
             });
 
@@ -113,12 +125,40 @@ export default function Game() {
 
     let statusMessage="Your Move",statusColor="warning";
 
-    // const [statusMessage, setstatusMessage] = useState("Your Move");
-    // const [statusColor, setstatusColor] = useState("warning");
-
-
-    let player_two_name="",match_status=1;
+   
+    let match_status=1;
  
+    const [opponentDetails, setopponentDetails] = useState([]);
+
+  
+   
+    async function fetchPlayerDetails() {
+        await fetch("https://wodrsbattlegame.000webhostapp.com/backend_for_tic_tac_toe/fetch-match-opponent.php?match_id="+match_id).then(res => res.json()).then(data => {
+            setopponentDetails(data);
+        });
+    }  
+    useEffect(() => {
+        fetchPlayerDetails();
+    }, []);
+
+    function setOpponentName(data) {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            if (parseInt(element.id) !== parseInt(myId)) {
+                return element.name;
+            }   
+        }
+    }
+
+    function setOpponentUserName(data) {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            if (parseInt(element.id) !== parseInt(myId)) {
+                return element.username;
+            }   
+        }
+    }
+
     if(matchDetails.length>0){
         match_status=matchDetails[0]["match_status"];
 
@@ -135,7 +175,7 @@ export default function Game() {
             statusColor="danger";
         } 
         else if(parseInt(matchDetails[0]["current_move"]) === parseInt(myId) && matchDetails[0]["match_status"]===1){
-            statusMessage="Waiting for "+matchDetails[0]["player_two_name"]+" response !";
+            statusMessage="Waiting for "+setOpponentName(opponentDetails)+" response !";
             statusColor="warning";
         } 
         else if(parseInt(matchDetails[0]["current_move"]) !== parseInt(myId) && matchDetails[0]["match_status"]===1){
@@ -148,7 +188,6 @@ export default function Game() {
         }
 
 
-        player_two_name=matchDetails[0].player_two_name;
         let boxes=document.getElementsByClassName('box');
         
         for (let i = 0; i < boxes.length; i++) {
@@ -166,8 +205,7 @@ export default function Game() {
 
             if((parseInt(matchDetails[0].current_move) === parseInt(myId)) || (parseInt(matchDetails[0]["box"+i]) !== 0)){
                 element.style.cursor = "not-allowed";
-            }
-            
+            } 
         }
 
 
@@ -183,7 +221,6 @@ export default function Game() {
             cache: false,
             success: function(data) {
                 fetchRepo();
-                console.log(data);
 
                 let boxes=document.getElementsByClassName('box');
         
@@ -196,10 +233,12 @@ export default function Game() {
             },
             error: function(error) {
                 alert("Sorry some technical issue.");
-                console.log(error)
+                // console.log(error)
             }
         });
     }
+
+    
 
   return (
     <>
@@ -214,7 +253,7 @@ export default function Game() {
                 </div>
 
                 <div className="topText mb-4">
-                    <h3>Game with {player_two_name}</h3>
+                    <h3>Game with {setOpponentName(opponentDetails)} ({setOpponentUserName(opponentDetails)})</h3>
                 </div>
 
                 <div className="d-flex fw-bold">

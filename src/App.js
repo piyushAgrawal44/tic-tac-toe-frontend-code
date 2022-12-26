@@ -12,6 +12,7 @@ import UserHome from './components/user/Home';
 import NotFound from './components/NotFound';
 import NewGame from './components/user/NewGame';
 import Game from './components/user/Game';
+import Account from './components/user/Account';
 
 function App() {
   
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/register" element={<Register />} />
 
           <Route exact path="/user/home" element={<UserHome />} />
+          <Route exact path="/user/account" element={<Account />} />
           <Route exact path="/user/newgame" element={<NewGame />} />
           <Route exact path="/user/game" element={<Game />} />
          

@@ -24,13 +24,21 @@ export default function Card(props) {
             }   
         }
     }
+    function setOpponentUserName(data) {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            if (parseInt(element.id) !== parseInt(props.myId)) {
+                return element.username;
+            }   
+        }
+    }
 
     if(parseInt(props.match_status)===1){
         return (
             <div className="card mb-3">
                     <div className="card-body">
-                        <h5 className="card-title">Match with {setOpponentName(opponentDetails)}</h5>
-                        <p className="card-text">{parseInt(props.current_move) !== parseInt(props.myId)?"It your turn to play the game !":"Waiting for "+props.player_two_name+" to play !" }</p>
+                        <h5 className="card-title">Match with {setOpponentName(opponentDetails)} ({setOpponentUserName(opponentDetails)})</h5>
+                        <p className="card-text">{parseInt(props.current_move) !== parseInt(props.myId)?"It your turn to play the game !":"Waiting for "+setOpponentName(opponentDetails)+" to play !" }</p>
                         <a href={`/tic-tac-toe/#/user/game?match_id=${props.match_id}`} className="btn btn-warning">{(parseInt(props.match_status)===1) && (parseInt(props.current_move) ===parseInt(props.myId))?"View Game !":"Play !"}</a>
                     </div>
             </div>
