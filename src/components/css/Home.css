@@ -1,0 +1,11 @@
+*{
+    font-family: 'Recursive', sans-serif;
+
+}
+.flex-direction-column{
+    flex-direction: column;
+}
+.buttonCat1{
+    width: 200px;
+    margin: auto;
+}

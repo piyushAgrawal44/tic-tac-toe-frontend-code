@@ -1,0 +1,8 @@
+.loginButton{
+    bottom: 10px;
+    width: 100px;
+    left: 10px;
+}
+.loginAlert{
+    visibility: hidden;
+}

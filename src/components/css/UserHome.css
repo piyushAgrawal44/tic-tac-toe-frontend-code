@@ -1,0 +1,14 @@
+.logoutButton{
+    max-width: fit-content;
+}
+.newGameButton{
+    right: 5px;
+    max-width: fit-content;
+    position: fixed;
+    bottom: 10px;
+    /* left: 100%; */
+}
+.card{
+    box-shadow: 2px 3px 10px grey;
+    border-radius: 5px;
+}

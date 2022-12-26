@@ -1,0 +1,44 @@
+.emailBox{
+    position: relative;
+}
+.usersList{
+    background-color: rgb(227, 244, 249);
+    border-radius: 3px;
+    padding: 3px 5px;
+    max-height: 70px;
+    overflow-y: auto;
+    display: none;
+    z-index: 11;
+    -moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.usersList .users{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    margin-bottom: 2px;
+    padding: 2px;
+    font-size: 12px;
+    align-items: center;
+    align-self: center;
+    font-weight: 600;
+}
+.usersList .users button{
+    font-size: 12px;
+}
+.inputArrow{
+    display: flex;
+    justify-content: flex-end;
+    
+    position: absolute;
+    z-index: 11;
+    right: 5%;
+    bottom: 10%;
+    font-weight: 700;
+    color: black;
+    /* padding-right: 12px; */
+}
