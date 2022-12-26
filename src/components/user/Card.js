@@ -31,7 +31,7 @@ export default function Card(props) {
                     <div className="card-body">
                         <h5 className="card-title">Match with {setOpponentName(opponentDetails)}</h5>
                         <p className="card-text">{parseInt(props.current_move) !== parseInt(props.myId)?"It your turn to play the game !":"Waiting for "+props.player_two_name+" to play !" }</p>
-                        <a href={`/user/game?match_id=${props.match_id}`} className="btn btn-warning">{(parseInt(props.match_status)===1) && (parseInt(props.current_move) ===parseInt(props.myId))?"View Game !":"Play !"}</a>
+                        <a href={`/tic-tac-toe/#/user/game?match_id=${props.match_id}`} className="btn btn-warning">{(parseInt(props.match_status)===1) && (parseInt(props.current_move) ===parseInt(props.myId))?"View Game !":"Play !"}</a>
                     </div>
             </div>
         )
@@ -42,7 +42,7 @@ export default function Card(props) {
                     <div className="card-body">
                         <h5 className="card-title">Match with {setOpponentName(opponentDetails)}</h5>
                         <p className="card-text">{parseInt(props.match_win_by) === parseInt(props.myId)?"You won the match !":"You loss the match !" }</p>
-                        <a href={`/user/game?match_id=${props.match_id}`} className="btn btn-warning">{(parseInt(props.match_status)===1) && (parseInt(props.current_move) ===parseInt(props.myId))?"View Game !":"Play !"}</a>
+                        <a href={`/tic-tac-toe/#/user/game?match_id=${props.match_id}`} className="btn btn-warning">{(parseInt(props.match_status)===1) && (parseInt(props.current_move) ===parseInt(props.myId))?"View Game !":"Play !"}</a>
                     </div>
             </div>
         )
@@ -53,7 +53,7 @@ export default function Card(props) {
                     <div className="card-body">
                         <h5 className="card-title">Match with {setOpponentName(opponentDetails)}</h5>
                         <p className="card-text">Match Draw !!</p>
-                        <a href={`/user/game?match_id=${props.match_id}`} className="btn btn-warning">View Game !</a>
+                        <a href={`/tic-tac-toe/#/user/game?match_id=${props.match_id}`} className="btn btn-warning">View Game !</a>
                     </div>
             </div>
         )
