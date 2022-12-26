@@ -19,13 +19,13 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/tic-tac-toe/" element={<Home />} />
+          <Route exact path="/tic-tac-toe/login" element={<Login />} />
+          <Route exact path="/tic-tac-toe/register" element={<Register />} />
 
-          <Route exact path="/user/home" element={<UserHome />} />
-          <Route exact path="/user/newgame" element={<NewGame />} />
-          <Route exact path="/user/game" element={<Game />} />
+          <Route exact path="/tic-tac-toe/user/home" element={<UserHome />} />
+          <Route exact path="/tic-tac-toe/user/newgame" element={<NewGame />} />
+          <Route exact path="/tic-tac-toe/user/game" element={<Game />} />
          
           <Route path="*" element={<NotFound />} />
         </Routes>

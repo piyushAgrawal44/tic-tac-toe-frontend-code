@@ -97,7 +97,7 @@ export default function Register() {
                         document.getElementById('loginAlert').classList.add("text-success");  
                         document.getElementById('alertMessage').innerText="Successfully account created !"
                         document.getElementById('loginAlert').style.visibility='visible'; 
-                        window.location.href="/login?success=true&message=Successfully account created";
+                        window.location.href="/tic-tac-toe/login?success=true&message=Successfully account created";
                     },
                     error: function(error) {
                         alert("Sorry some technical issue.");

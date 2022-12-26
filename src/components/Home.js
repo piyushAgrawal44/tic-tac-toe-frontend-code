@@ -10,13 +10,13 @@ export default function Home() {
         </div>
         <br /><br />
         <div className="d-flex flex-direction-column justify-content-center">
-            <a href="/login" className="btn btn-warning buttonCat1 btn-lg px-4 mb-3">
+            <a href="/tic-tac-toe/login" className="btn btn-warning buttonCat1 btn-lg px-4 mb-3">
                 Login
             </a>
             
             <div className='text-center mb-3'>Or</div>
             
-            <a href="/register" className="btn btn-primary buttonCat1 btn-lg px-4 mb-3">
+            <a href="/tic-tac-toe/register" className="btn btn-primary buttonCat1 btn-lg px-4 mb-3">
                 Register
             </a>
         </div>
