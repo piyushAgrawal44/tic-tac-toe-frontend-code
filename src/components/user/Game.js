@@ -8,7 +8,7 @@ export default function Game() {
 
     let logged = localStorage.getItem("logged");
     if(!logged){
-        window.location.href='/login';
+        window.location.href='/tic-tac-toe/#/login';
     }
     let myId = localStorage.getItem("logged_id");
 

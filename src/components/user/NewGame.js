@@ -5,11 +5,9 @@ import $ from 'jquery'
 export default function NewGame() {
     let logged = localStorage.getItem("logged");
     if(!logged){
-        window.location.href='/login';
+        window.location.href='/tic-tac-toe/#/login';
     }
     let myId = localStorage.getItem("logged_id");
-    // let name = localStorage.getItem("logged_name");
-    // let username = localStorage.getItem("logged_username");
     const [users, setusers] = useState([])
 
     useEffect(() => {
@@ -154,9 +152,8 @@ export default function NewGame() {
                 let myData=JSON.parse(data);
 
                 if(myData.success===true){
-                    window.location.href=`/user/game?match_id=${myData.match_id}`;
+                    window.location.href=`/tic-tac-toe/#/user/game?match_id=${myData.match_id}`;
                 }
-                // window.location.href="/tic-tac-toe/#/user/game";
             },
             error: function(error) {
                 document.getElementById('alertMessage').innerText=error.responseText;

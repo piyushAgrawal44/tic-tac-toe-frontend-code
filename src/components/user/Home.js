@@ -11,12 +11,12 @@ export default function Home() {
         localStorage.removeItem("logged_id");
         localStorage.removeItem("logged_name");
         localStorage.removeItem("logged_username");
-        window.location.href="/";
+        window.location.href="/tic-tac-toe/#/";
     }
 
     let logged = localStorage.getItem("logged");
     if(!logged){
-        window.location.href='/login';
+        window.location.href='/tic-tac-toe/#/login';
     }
     let myId = localStorage.getItem("logged_id");
     useEffect(() => {
