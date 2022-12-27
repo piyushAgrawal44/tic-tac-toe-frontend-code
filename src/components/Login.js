@@ -6,23 +6,38 @@ export default function Login() {
     if(logged){
         window.location.href='/tic-tac-toe/#/user/home';
     }
+    // function to valididate the user input value
+    function valididateInput(inputVal, msg) {
+        if(!inputVal){
+            document.getElementById('alertMessage').innerText=msg;
+            document.getElementById('loginAlert').style.visibility='visible'; 
+            return false;
+        }
+        else{
+            document.getElementById('loginAlert').style.visibility='hidden';
+            return true;
+        }
+    }
 
+    // fuction to login the user
     function loginUser(e) {
         e.preventDefault();
         let username=document.getElementById('username').value;
         let password=document.getElementById('password').value;
 
-        if (!username) {
-            document.getElementById('alertMessage').innerText="Please enter a valid email id !"
-            document.getElementById('loginAlert').style.visibility='visible'; 
+        if (!valididateInput(username, "Username can not be blank !")) {
+            setTimeout(() => {
+                document.getElementById('loginAlert').style.visibility='hidden';
+            }, 3500); 
             return ;
         }
-        else{
-            document.getElementById('loginAlert').style.visibility='hidden';
-        }
+
         if(!password || password.length<6){
             document.getElementById('alertMessage').innerText="Please enter a valid password !"
             document.getElementById('loginAlert').style.visibility='visible'; 
+            setTimeout(() => {
+                document.getElementById('loginAlert').style.visibility='hidden';
+            }, 3500); 
             return ;
         }
         else{
@@ -40,9 +55,10 @@ export default function Login() {
             success: function(data) {
                 let myData=JSON.parse(data);
                 if(myData.status===true){
-                    // data is important showing on the account page
                     localStorage.setItem("logged", true);
                     localStorage.setItem("logged_id", myData.user_id);
+                    
+                    // data is important for showing into account page
                     localStorage.setItem("logged_name", myData.name);
                     localStorage.setItem("logged_username", myData.username);
                     window.location.href="/tic-tac-toe/#/user/home";
@@ -58,6 +74,7 @@ export default function Login() {
         });
     }
 
+    // this function makes the password visible
     function showPassword(e) {
         
         if (e.target.checked) {
@@ -68,15 +85,19 @@ export default function Login() {
     }
 
     let url_string = window.location.href; 
-    let url = new URL(url_string);
-    let success = url.searchParams.get("success");
-    let message = url.searchParams.get("message");
-
+    let result=url_string.split('?').reduce(function (res, item) {
+        var parts = item.split('=');
+        res[parts[0]] = parts[1];
+        return res;
+    }, {});
+    let accountCreated = result.accountCreated;
+    // let message = url.searchParams.get("message");
+    let message = "Successfully account created !";
 
     return (
         <>
             
-            <div className={`alert alert-${success?"primary":"danger"} alert-dismissible fade show ${success===null?"d-none":""}`} role="alert">
+            <div className={`alert alert-${accountCreated?"primary":"danger"} alert-dismissible fade show ${accountCreated===undefined?"d-none":""}`} role="alert">
                  {message}
                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -99,18 +120,18 @@ export default function Login() {
                     <form id='loginForm' onSubmit={(e)=>{loginUser(e)}}>
                         <div className="mb-3">
                             <label htmlFor="username" className="form-label">Username</label>
-                            <input type="text" className="form-control" id="username" placeholder='Type your username here' aria-describedby="usernameHelp" />
+                            <input required type="text" className="form-control" id="username" placeholder='Type your username here' aria-describedby="usernameHelp" />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="password" className="form-label">Password</label>
-                            <input type="password" className="form-control" placeholder='Type your password here' id="password" />
+                            <input required type="password" className="form-control" placeholder='Type your password here' id="password" />
                         </div>
                         <div className="mb-3 form-check">
                             <input type="checkbox" className="form-check-input" onClick={(e)=>{showPassword(e)}} />
                             <label className="form-check-label" htmlFor="exampleCheck1">Show Password</label>
                         </div>
 
-                        <div className="alert alert-danger loginAlert" id='loginAlert' role="alert">
+                        <div className="alert alert-danger loginAlert fixed-top m-2" id='loginAlert' role="alert">
                             <span className="alertMessage" id="alertMessage"></span>
                         </div>
                         <button type="submit" className="btn btn-warning fixed-bottom loginButton">Login</button>

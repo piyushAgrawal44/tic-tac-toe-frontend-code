@@ -2,6 +2,18 @@ import React from 'react'
 import './css/Register.css';
 import $ from 'jquery';
 export default function Register() {
+
+    function valididateInput(inputVal, msg) {
+        if(!inputVal){
+            document.getElementById('alertMessage').innerText=msg;
+            document.getElementById('loginAlert').style.visibility='visible'; 
+            return false;
+        }
+        else{
+            document.getElementById('loginAlert').style.visibility='hidden';
+            return true;
+        }
+    }
     function createUser(e) {
         e.preventDefault();
         let name=document.getElementById('name').value;
@@ -10,36 +22,33 @@ export default function Register() {
         let email=document.getElementById('email').value;
         let password=document.getElementById('password').value;
 
-        if (!name) {
-            document.getElementById('alertMessage').innerText="Please enter a valid name !"
-            document.getElementById('loginAlert').style.visibility='visible'; 
+
+        if (!valididateInput(name,"Name can not be blank !")) { 
+            setTimeout(() => {
+                document.getElementById('loginAlert').style.visibility='hidden';
+            }, 3500);
             return ;
         }
-        else{
-            document.getElementById('loginAlert').style.visibility='hidden';
-        }
-
-        if (!username) {
-            document.getElementById('alertMessage').innerText="Please enter a valid username !"
-            document.getElementById('loginAlert').style.visibility='visible'; 
+        if (!valididateInput(username, "Username can not be blank !")) { 
+            setTimeout(() => {
+                document.getElementById('loginAlert').style.visibility='hidden';
+            }, 3500);
             return ;
         }
-        else{
-            document.getElementById('loginAlert').style.visibility='hidden';
-        }
 
-        if (!email) {
-            document.getElementById('alertMessage').innerText="Please enter a valid email id !"
-            document.getElementById('loginAlert').style.visibility='visible'; 
+        if (!valididateInput(email,"Email id can not be blank !")) { 
+            setTimeout(() => {
+                document.getElementById('loginAlert').style.visibility='hidden';
+            }, 3500);
             return ;
         }
-        else{
-            document.getElementById('loginAlert').style.visibility='hidden';
-        }
-
+       
         if(!password || password.length<6){
-            document.getElementById('alertMessage').innerText="Please enter a valid password !"
+            document.getElementById('alertMessage').innerText="Please enter a valid password ! password must be 6 digits long."
             document.getElementById('loginAlert').style.visibility='visible'; 
+            setTimeout(() => {
+                document.getElementById('loginAlert').style.visibility='hidden';
+            }, 3500);
             return ;
         }
         else{
@@ -66,6 +75,9 @@ export default function Register() {
                 if(username_registered){
                     document.getElementById('alertMessage').innerText="Username is already registered !"
                     document.getElementById('loginAlert').style.visibility='visible'; 
+                    setTimeout(() => {
+                        document.getElementById('loginAlert').style.visibility='hidden';
+                    }, 3500);
                     return 0;
                 }
                 else{
@@ -75,6 +87,9 @@ export default function Register() {
                 if(email_registered){
                     document.getElementById('alertMessage').innerText="Email id is already registered !"
                     document.getElementById('loginAlert').style.visibility='visible'; 
+                    setTimeout(() => {
+                        document.getElementById('loginAlert').style.visibility='hidden';
+                    }, 3500);
                     return 0;
                 }
                 else{
@@ -97,15 +112,17 @@ export default function Register() {
                         document.getElementById('loginAlert').classList.add("text-success");  
                         document.getElementById('alertMessage').innerText="Successfully account created !"
                         document.getElementById('loginAlert').style.visibility='visible'; 
-                        window.location.href="/tic-tac-toe/#/login?success=true&message=Successfully account created";
+                        window.location.href="/tic-tac-toe/#/login?accountCreated=true";
                     },
                     error: function(error) {
                         alert("Sorry some technical issue.");
+                        console.log(error); 
                     }
                 });
             },
             error: function(error) {
                 alert("Sorry some technical issue.");
+                
             }
         });
 
@@ -142,19 +159,19 @@ export default function Register() {
                     <form onSubmit={(e)=>{createUser(e)}}>
                         <div className="mb-2">
                             <label htmlFor="name" className="form-label">Name</label>
-                            <input type="name" className="form-control" id="name" placeholder='Type your full name here' aria-describedby="nameHelp" />
+                            <input required  type="name" className="form-control" id="name" placeholder='Type your full name here' aria-describedby="nameHelp" />
                         </div>
                         <div className="mb-2">
                             <label htmlFor="username" className="form-label">Username</label>
-                            <input type="text" className="form-control" id="username" placeholder='Type your username here' aria-describedby="usernameHelp" />
+                            <input required  type="text" className="form-control" id="username" placeholder='Type your username here' aria-describedby="usernameHelp" />
                         </div>
                         <div className="mb-2">
                             <label htmlFor="email" className="form-label">Email</label>
-                            <input type="email" className="form-control" id="email" placeholder='Type your email here' aria-describedby="emailHelp" />
+                            <input required  type="email" className="form-control" id="email" placeholder='Type your email here' aria-describedby="emailHelp" />
                         </div>
                         <div className="mb-2">
                             <label htmlFor="password" className="form-label">Password</label>
-                            <input type="password" className="form-control" placeholder='Type your password here' id="password" />
+                            <input  required type="password" className="form-control" placeholder='Type your password here' id="password" />
                         </div>
 
                         <div className="mb-2 form-check">
@@ -162,7 +179,7 @@ export default function Register() {
                             <label className="form-check-label" htmlFor="exampleCheck1">Show Password</label>
                         </div>
 
-                        <div className="alert alert-danger loginAlert" id='loginAlert' role="alert">
+                        <div className="alert alert-danger loginAlert fixed-top m-2" id='loginAlert' role="alert">
                             <span className="alertMessage" id="alertMessage"></span>
                         </div>
                         <button type="submit" className="btn btn-primary  fixed-bottom loginButton">Register</button>
